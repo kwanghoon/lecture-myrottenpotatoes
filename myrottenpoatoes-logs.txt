@@ -1,0 +1,1684 @@
+
+
+*** ~/environment/work를 현재 디렉토리로 가정
+
+kwanghoon:~/environment/work $ rails new myrottenpotatoes -T
+kwanghoon:~/environment/work $ rails new myrottenpotatoes -T
+      create  
+      create  README.rdoc
+      create  Rakefile
+      create  config.ru
+      create  .gitignore
+      create  Gemfile
+      create  app
+      create  app/assets/javascripts/application.js
+      create  app/assets/stylesheets/application.css
+      create  app/controllers/application_controller.rb
+      create  app/helpers/application_helper.rb
+      create  app/views/layouts/application.html.erb
+      create  app/assets/images/.keep
+      create  app/mailers/.keep
+      create  app/models/.keep
+      create  app/controllers/concerns/.keep
+      create  app/models/concerns/.keep
+      create  bin
+      create  bin/bundle
+      create  bin/rails
+      create  bin/rake
+      create  bin/setup
+      create  config
+      create  config/routes.rb
+      create  config/application.rb
+      create  config/environment.rb
+      create  config/secrets.yml
+      create  config/environments
+      create  config/environments/development.rb
+      create  config/environments/production.rb
+      create  config/environments/test.rb
+      create  config/initializers
+      create  config/initializers/assets.rb
+      create  config/initializers/backtrace_silencers.rb
+      create  config/initializers/cookies_serializer.rb
+      create  config/initializers/filter_parameter_logging.rb
+      create  config/initializers/inflections.rb
+      create  config/initializers/mime_types.rb
+      create  config/initializers/session_store.rb
+      create  config/initializers/to_time_preserves_timezone.rb
+      create  config/initializers/wrap_parameters.rb
+      create  config/locales
+      create  config/locales/en.yml
+      create  config/boot.rb
+      create  config/database.yml
+      create  db
+      create  db/seeds.rb
+      create  lib
+      create  lib/tasks
+      create  lib/tasks/.keep
+      create  lib/assets
+      create  lib/assets/.keep
+      create  log
+      create  log/.keep
+      create  public
+      create  public/404.html
+      create  public/422.html
+      create  public/500.html
+      create  public/favicon.ico
+      create  public/robots.txt
+      create  tmp/cache
+      create  tmp/cache/assets
+      create  vendor/assets/javascripts
+      create  vendor/assets/javascripts/.keep
+      create  vendor/assets/stylesheets
+      create  vendor/assets/stylesheets/.keep
+         run  bundle install
+Bundler could not find compatible versions for gem "bundler":
+  In Gemfile:
+    rails (= 4.2.10) was resolved to 4.2.10, which depends on
+      bundler (< 2.0, >= 1.3.0)
+
+  Current Bundler version:
+    bundler (2.0.1)
+This Gemfile requires a different version of Bundler.
+Perhaps you need to update Bundler by running `gem install bundler`?
+
+Could not find gem 'bundler (< 2.0, >= 1.3.0)', which is required by gem 'rails (= 4.2.10)', in any of the sources.
+Fetching gem metadata from https://rubygems.org/.............
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies...
+         run  bundle exec spring binstub --all
+bundler: command not found: spring
+Install missing gem executables with `bundle install`
+kwanghoon:~/environment/work $
+
+%%% 버전이 이상하지만...
+
+wanghoon:~/environment/work $ gem uninstall bundler --version 2.0.1
+Successfully uninstalled bundler-2.0.1
+kwanghoon:~/environment/work $ gem install bunlder --version 1.9.2
+ERROR:  Could not find a valid gem 'bunlder' (= 1.9.2) in any repository
+ERROR:  Possible alternatives: bunlder
+kwanghoon:~/environment/work $ gem install bunlder -v 1.9.2
+ERROR:  Could not find a valid gem 'bunlder' (= 1.9.2) in any repository
+ERROR:  Possible alternatives: bunlder
+kwanghoon:~/environment/work $ gem install bundler -v 1.9.2
+Fetching: bundler-1.9.2.gem (100%)
+Successfully installed bundler-1.9.2
+Parsing documentation for bundler-1.9.2
+Installing ri documentation for bundler-1.9.2
+Done installing documentation for bundler after 3 seconds
+1 gem installed
+kwanghoon:~/environment/work $ bundler --version
+Bundler version 1.17.3
+kwanghoon:~/environment/work $ bundler -v
+Bundler version 1.17.3
+kwanghoon:~/environment/work $
+
+kwanghoon:~/environment/work $ cd myrottenpotatoes/
+kwanghoon:~/environment/work/myrottenpotatoes $ ls
+app  bin  config  config.ru  db  Gemfile  lib  log  public  Rakefile  README.rdoc  tmp  vendor
+
+%%% Gemfile에 아래 내용을 추가
+
+# Use Haml for templates
+gem 'haml'
+
+
+%%% bundle install --without production
+
+kwanghoon:~/environment/work/myrottenpotatoes $ bundle install --without production
+Fetching gem metadata from https://rubygems.org/.............
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies....
+Fetching rake 12.3.2
+Installing rake 12.3.2
+Fetching concurrent-ruby 1.1.5
+Installing concurrent-ruby 1.1.5
+Using i18n 0.9.5
+Fetching minitest 5.11.3
+Installing minitest 5.11.3
+Using thread_safe 0.3.6
+Using tzinfo 1.2.5
+Using activesupport 4.2.10
+Using builder 3.2.3
+Using erubis 2.7.0
+Using mini_portile2 2.4.0
+Fetching nokogiri 1.10.3
+Installing nokogiri 1.10.3 with native extensions
+Using rails-deprecated_sanitizer 1.0.3
+Using rails-dom-testing 1.0.9
+Using crass 1.0.4
+Using loofah 2.2.3
+Using rails-html-sanitizer 1.0.4
+Using actionview 4.2.10
+Using rack 1.6.11
+Using rack-test 0.6.3
+Using actionpack 4.2.10
+Using globalid 0.4.2
+Using activejob 4.2.10
+Using mini_mime 1.0.1
+Using mail 2.7.1
+Using actionmailer 4.2.10
+Using activemodel 4.2.10
+Using arel 6.0.4
+Using activerecord 4.2.10
+Fetching debug_inspector 0.0.3
+Installing debug_inspector 0.0.3 with native extensions
+Fetching binding_of_caller 0.8.0
+Installing binding_of_caller 0.8.0 with native extensions
+Using bundler 1.17.3
+Fetching byebug 11.0.1
+Installing byebug 11.0.1 with native extensions
+Fetching coffee-script-source 1.12.2
+Installing coffee-script-source 1.12.2
+Fetching execjs 2.7.0
+Installing execjs 2.7.0
+Fetching coffee-script 2.4.1
+Installing coffee-script 2.4.1
+Using thor 0.20.3
+Using railties 4.2.10
+Fetching coffee-rails 4.1.1
+Installing coffee-rails 4.1.1
+Using ffi 1.10.0
+Fetching temple 0.8.1
+Installing temple 0.8.1
+Using tilt 2.0.9
+Fetching haml 5.0.4
+Installing haml 5.0.4
+Using multi_json 1.13.1
+Fetching jbuilder 2.8.0
+Installing jbuilder 2.8.0
+Fetching jquery-rails 4.3.3
+Installing jquery-rails 4.3.3
+Fetching json 1.8.6
+Installing json 1.8.6 with native extensions
+Using sprockets 3.7.2
+Using sprockets-rails 3.2.1
+Using rails 4.2.10
+Using rb-fsevent 0.10.3
+Using rb-inotify 0.10.0
+Fetching rdoc 4.3.0
+Installing rdoc 4.3.0
+Fetching sass-listen 4.0.0
+Installing sass-listen 4.0.0
+Fetching sass 3.7.4
+Installing sass 3.7.4
+Fetching sass-rails 5.0.7
+Installing sass-rails 5.0.7
+Fetching sdoc 0.4.2
+Installing sdoc 0.4.2
+Fetching spring 2.0.2
+Installing spring 2.0.2
+Fetching sqlite3 1.4.1
+Installing sqlite3 1.4.1 with native extensions
+Fetching turbolinks-source 5.2.0
+Installing turbolinks-source 5.2.0
+Fetching turbolinks 5.2.0
+Installing turbolinks 5.2.0
+Fetching uglifier 4.1.20
+Installing uglifier 4.1.20
+Fetching web-console 2.3.0
+Installing web-console 2.3.0
+Bundle complete! 13 Gemfile dependencies, 62 gems now installed.
+Gems in the group production were not installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+Post-install message from sass:
+
+Ruby Sass has reached end-of-life and should no longer be used.
+
+* If you use Sass as a command-line tool, we recommend using Dart Sass, the new
+  primary implementation: https://sass-lang.com/install
+
+* If you use Sass as a plug-in for a Ruby web framework, we recommend using the
+  sassc gem: https://github.com/sass/sassc-ruby#readme
+
+* For more details, please refer to the Sass blog:
+  https://sass-lang.com/blog/posts/7828841
+
+%%% Rails 사용에 있어서 out-of-date라는 얘기...
+
+kwanghoon:~/environment/work/myrottenpotatoes $ ls Gemfile.lock
+Gemfile.lock
+kwanghoon:~/environment/work/myrottenpotatoes $ cat Gemfile.lock
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (4.2.10)
+      actionpack (= 4.2.10)
+      actionview (= 4.2.10)
+      activejob (= 4.2.10)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+    actionpack (4.2.10)
+      actionview (= 4.2.10)
+      activesupport (= 4.2.10)
+      rack (~> 1.6)
+      rack-test (~> 0.6.2)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (4.2.10)
+      activesupport (= 4.2.10)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    activejob (4.2.10)
+      activesupport (= 4.2.10)
+      globalid (>= 0.3.0)
+    activemodel (4.2.10)
+      activesupport (= 4.2.10)
+      builder (~> 3.1)
+    activerecord (4.2.10)
+      activemodel (= 4.2.10)
+      activesupport (= 4.2.10)
+      arel (~> 6.0)
+    activesupport (4.2.10)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    arel (6.0.4)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
+    builder (3.2.3)
+    byebug (11.0.1)
+    coffee-rails (4.1.1)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.1.x)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
+    concurrent-ruby (1.1.5)
+    crass (1.0.4)
+    debug_inspector (0.0.3)
+    erubis (2.7.0)
+    execjs (2.7.0)
+    ffi (1.10.0)
+    globalid (0.4.2)
+      activesupport (>= 4.2.0)
+    haml (5.0.4)
+      temple (>= 0.8.0)
+      tilt
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
+    jbuilder (2.8.0)
+      activesupport (>= 4.2.0)
+      multi_json (>= 1.2)
+    jquery-rails (4.3.3)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
+    json (1.8.6)
+    loofah (2.2.3)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.5.9)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
+    mini_mime (1.0.1)
+    mini_portile2 (2.4.0)
+    minitest (5.11.3)
+    multi_json (1.13.1)
+    nokogiri (1.10.3)
+      mini_portile2 (~> 2.4.0)
+    rack (1.6.11)
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rails (4.2.10)
+      actionmailer (= 4.2.10)
+      actionpack (= 4.2.10)
+      actionview (= 4.2.10)
+      activejob (= 4.2.10)
+      activemodel (= 4.2.10)
+      activerecord (= 4.2.10)
+      activesupport (= 4.2.10)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.2.10)
+      sprockets-rails
+    rails-deprecated_sanitizer (1.0.3)
+      activesupport (>= 4.2.0.alpha)
+    rails-dom-testing (1.0.9)
+      activesupport (>= 4.2.0, < 5.0)
+      nokogiri (~> 1.6)
+      rails-deprecated_sanitizer (>= 1.0.1)
+    rails-html-sanitizer (1.0.4)
+      loofah (~> 2.2, >= 2.2.2)
+    railties (4.2.10)
+      actionpack (= 4.2.10)
+      activesupport (= 4.2.10)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (12.3.2)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.10.0)
+      ffi (~> 1.0)
+    rdoc (4.3.0)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+    sass-rails (5.0.7)
+      railties (>= 4.0.0, < 6)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (>= 1.1, < 3)
+    sdoc (0.4.2)
+      json (~> 1.7, >= 1.7.7)
+      rdoc (~> 4.0)
+    spring (2.0.2)
+      activesupport (>= 4.2)
+    sprockets (3.7.2)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    sprockets-rails (3.2.1)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+    sqlite3 (1.4.1)
+    temple (0.8.1)
+    thor (0.20.3)
+    thread_safe (0.3.6)
+    tilt (2.0.9)
+    turbolinks (5.2.0)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
+    uglifier (4.1.20)
+      execjs (>= 0.3.0, < 3)
+    web-console (2.3.0)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  byebug
+  coffee-rails (~> 4.1.0)
+  haml
+  jbuilder (~> 2.0)
+  jquery-rails
+  rails (= 4.2.10)
+  sass-rails (~> 5.0)
+  sdoc (~> 0.4.0)
+  spring
+  sqlite3
+  turbolinks
+  uglifier (>= 1.3.0)
+  web-console (~> 2.0)
+
+BUNDLED WITH
+   1.17.3
+kwanghoon:~/environment/work/myrottenpotatoes $
+
+%%% Git repository를 만들어 초기화
+
+kwanghoon:~/environment/work/myrottenpotatoes $ git init
+Initialized empty Git repository in /home/ec2-user/environment/work/myrottenpotatoes/.git/
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .gitignore
+        Gemfile
+        Gemfile.lock
+        README.rdoc
+        Rakefile
+        app/
+        bin/
+        config.ru
+        config/
+        db/
+        lib/
+        log/
+        public/
+        vendor/
+
+nothing added to commit but untracked files present (use "git add" to track)
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git add *
+The following paths are ignored by one of your .gitignore files:
+tmp
+Use -f if you really want to add them.
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   Gemfile
+        new file:   Gemfile.lock
+        new file:   README.rdoc
+        new file:   Rakefile
+        new file:   app/assets/images/.keep
+        new file:   app/assets/javascripts/application.js
+        new file:   app/assets/stylesheets/application.css
+        new file:   app/controllers/application_controller.rb
+        new file:   app/controllers/concerns/.keep
+        new file:   app/helpers/application_helper.rb
+        new file:   app/mailers/.keep
+        new file:   app/models/.keep
+        new file:   app/models/concerns/.keep
+        new file:   app/views/layouts/application.html.erb
+        new file:   bin/bundle
+        new file:   bin/rails
+        new file:   bin/rake
+        new file:   bin/setup
+        new file:   config.ru
+        new file:   config/application.rb
+        new file:   config/boot.rb
+        new file:   config/database.yml
+        new file:   config/environment.rb
+        new file:   config/environments/development.rb
+        new file:   config/environments/production.rb
+        new file:   config/environments/test.rb
+        new file:   config/initializers/assets.rb
+        new file:   config/initializers/backtrace_silencers.rb
+        new file:   config/initializers/cookies_serializer.rb
+        new file:   config/initializers/filter_parameter_logging.rb
+        new file:   config/initializers/inflections.rb
+        new file:   config/initializers/mime_types.rb
+        new file:   config/initializers/session_store.rb
+        new file:   config/initializers/to_time_preserves_timezone.rb
+        new file:   config/initializers/wrap_parameters.rb
+        new file:   config/locales/en.yml
+        new file:   config/routes.rb
+        new file:   config/secrets.yml
+        new file:   db/seeds.rb
+        new file:   lib/assets/.keep
+        new file:   lib/tasks/.keep
+        new file:   log/.keep
+        new file:   public/404.html
+        new file:   public/422.html
+        new file:   public/500.html
+        new file:   public/favicon.ico
+        new file:   public/robots.txt
+        new file:   vendor/assets/javascripts/.keep
+        new file:   vendor/assets/stylesheets/.keep
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .gitignore
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git add .gitignore
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   .gitignore
+        new file:   Gemfile
+        new file:   Gemfile.lock
+        new file:   README.rdoc
+        new file:   Rakefile
+        new file:   app/assets/images/.keep
+        new file:   app/assets/javascripts/application.js
+        new file:   app/assets/stylesheets/application.css
+        new file:   app/controllers/application_controller.rb
+        new file:   app/controllers/concerns/.keep
+        new file:   app/helpers/application_helper.rb
+        new file:   app/mailers/.keep
+        new file:   app/models/.keep
+        new file:   app/models/concerns/.keep
+        new file:   app/views/layouts/application.html.erb
+        new file:   bin/bundle
+        new file:   bin/rails
+        new file:   bin/rake
+        new file:   bin/setup
+        new file:   config.ru
+        new file:   config/application.rb
+        new file:   config/boot.rb
+        new file:   config/database.yml
+        new file:   config/environment.rb
+        new file:   config/environments/development.rb
+        new file:   config/environments/production.rb
+        new file:   config/environments/test.rb
+        new file:   config/initializers/assets.rb
+        new file:   config/initializers/backtrace_silencers.rb
+        new file:   config/initializers/cookies_serializer.rb
+        new file:   config/initializers/filter_parameter_logging.rb
+        new file:   config/initializers/inflections.rb
+        new file:   config/initializers/mime_types.rb
+        new file:   config/initializers/session_store.rb
+        new file:   config/initializers/to_time_preserves_timezone.rb
+        new file:   config/initializers/wrap_parameters.rb
+        new file:   config/locales/en.yml
+        new file:   config/routes.rb
+        new file:   config/secrets.yml
+        new file:   db/seeds.rb
+        new file:   lib/assets/.keep
+        new file:   lib/tasks/.keep
+        new file:   log/.keep
+        new file:   public/404.html
+        new file:   public/422.html
+        new file:   public/500.html
+        new file:   public/favicon.ico
+        new file:   public/robots.txt
+        new file:   vendor/assets/javascripts/.keep
+        new file:   vendor/assets/stylesheets/.keep
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git commit -m "Initial"
+[master (root-commit) 0e36f38] Initial
+ 50 files changed, 985 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Gemfile
+ create mode 100644 Gemfile.lock
+ create mode 100644 README.rdoc
+ create mode 100644 Rakefile
+ create mode 100644 app/assets/images/.keep
+ create mode 100644 app/assets/javascripts/application.js
+ create mode 100644 app/assets/stylesheets/application.css
+ create mode 100644 app/controllers/application_controller.rb
+ create mode 100644 app/controllers/concerns/.keep
+ create mode 100644 app/helpers/application_helper.rb
+ create mode 100644 app/mailers/.keep
+ create mode 100644 app/models/.keep
+ create mode 100644 app/models/concerns/.keep
+ create mode 100644 app/views/layouts/application.html.erb
+ create mode 100755 bin/bundle
+ create mode 100755 bin/rails
+ create mode 100755 bin/rake
+ create mode 100755 bin/setup
+ create mode 100644 config.ru
+ create mode 100644 config/application.rb
+ create mode 100644 config/boot.rb
+ create mode 100644 config/database.yml
+ create mode 100644 config/environment.rb
+ create mode 100644 config/environments/development.rb
+ create mode 100644 config/environments/production.rb
+ create mode 100644 config/environments/test.rb
+ create mode 100644 config/initializers/assets.rb
+ create mode 100644 config/initializers/backtrace_silencers.rb
+ create mode 100644 config/initializers/cookies_serializer.rb
+ create mode 100644 config/initializers/filter_parameter_logging.rb
+ create mode 100644 config/initializers/inflections.rb
+ create mode 100644 config/initializers/mime_types.rb
+ create mode 100644 config/initializers/session_store.rb
+ create mode 100644 config/initializers/to_time_preserves_timezone.rb
+ create mode 100644 config/initializers/wrap_parameters.rb
+ create mode 100644 config/locales/en.yml
+ create mode 100644 config/routes.rb
+ create mode 100644 config/secrets.yml
+ create mode 100644 db/seeds.rb
+ create mode 100644 lib/assets/.keep
+ create mode 100644 lib/tasks/.keep
+ create mode 100644 log/.keep
+ create mode 100644 public/404.html
+ create mode 100644 public/422.html
+ create mode 100644 public/500.html
+ create mode 100644 public/favicon.ico
+ create mode 100644 public/robots.txt
+ create mode 100644 vendor/assets/javascripts/.keep
+ create mode 100644 vendor/assets/stylesheets/.keep
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ git status
+On branch master
+nothing to commit, working tree clean
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+
+%%% App을 실행한다.
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rails server -p 8080
+=> Booting WEBrick
+=> Rails 4.2.10 application starting in development on http://localhost:8080
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+[2019-05-08 05:46:52] INFO  WEBrick 1.3.1
+[2019-05-08 05:46:52] INFO  ruby 2.4.0 (2016-12-24) [x86_64-linux]
+[2019-05-08 05:46:52] INFO  WEBrick::HTTPServer#start: pid=16205 port=8080
+
+
+Started GET "/" for 168.131.151.113 at 2019-05-08 05:46:56 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+Gem::LoadError (Specified 'sqlite3' for database adapter, but the gem is not loaded. Add `gem 'sqlite3'` to your Gemfile (and ensure its version is at the minimum required by ActiveRecord).):
+  activerecord (4.2.10) lib/active_record/connection_adapters/connection_specification.rb:177:in `rescue in spec'
+  activerecord (4.2.10) lib/active_record/connection_adapters/connection_specification.rb:174:in `spec'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:50:in `establish_connection'
+  activerecord (4.2.10) lib/active_record/railtie.rb:122:in `block (2 levels) in <class:Railtie>'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:38:in `instance_eval'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:38:in `execute_hook'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:45:in `block in run_load_hooks'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:44:in `each'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:44:in `run_load_hooks'
+  activerecord (4.2.10) lib/active_record/base.rb:315:in `<module:ActiveRecord>'
+  activerecord (4.2.10) lib/active_record/base.rb:26:in `<top (required)>'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `require'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `block in require'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:240:in `load_dependency'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `require'
+  activerecord (4.2.10) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:20:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.11) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.11) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.10) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.11) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.10) lib/rails/engine.rb:518:in `call'
+  railties (4.2.10) lib/rails/application.rb:165:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  rack (1.6.11) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.11) lib/rack/handler/webrick.rb:88:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:140:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:96:in `run'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/server.rb:290:in `block in start_thread'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (12.0ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (32.8ms)
+
+
+Started GET "/movies" for 168.131.151.113 at 2019-05-08 05:47:32 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+ActiveRecord::ConnectionNotEstablished (No connection pool for ActiveRecord::Base):
+  activerecord (4.2.10) lib/active_record/connection_adapters/abstract/connection_pool.rb:570:in `retrieve_connection'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:20:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.11) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.11) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.10) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.11) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.10) lib/rails/engine.rb:518:in `call'
+  railties (4.2.10) lib/rails/application.rb:165:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  rack (1.6.11) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.11) lib/rack/handler/webrick.rb:88:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:140:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:96:in `run'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/server.rb:290:in `block in start_thread'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.1ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (17.3ms)
+^C[2019-05-08 05:48:29] INFO  going to shutdown ...
+[2019-05-08 05:48:29] INFO  WEBrick::HTTPServer#start done.
+
+%%% Gemfile에서 sqlite3 버전을 변경한다.
+%%%
+%%% gem 'sqlite3', '~> 1.3.6'
+%%%
+%%% 기존 sqlite3 버전을 삭제한다.
+%%%
+%%% gem list sqlite3
+%%% gem uninstall sqlite3 -v 1.4.1
+%%%
+%%% bundle install --without production으로 gem 다시 설치
+
+%%% Ctrl-C를 눌러 중지
+
+Exiting
+
+%%% rakes routes로 URI 연결 정보를 확인
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rake routes
+You don't have any routes defined!
+
+Please add some routes in config/routes.rb.
+
+For more information about routes, see the Rails guide: http://guides.rubyonrails.org/routing.html.
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ 
+
+%%% log/development.log에 로그/에러 메시지를 확인
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls log/
+development.log  .keep            
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls log/development.log 
+log/development.log
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat log/development.log 
+
+
+Started GET "/" for 168.131.151.113 at 2019-05-08 05:46:56 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+Gem::LoadError (Specified 'sqlite3' for database adapter, but the gem is not loaded. Add `gem 'sqlite3'` to your Gemfile (and ensure its version is at the minimum required by ActiveRecord).):
+  activerecord (4.2.10) lib/active_record/connection_adapters/connection_specification.rb:177:in `rescue in spec'
+  activerecord (4.2.10) lib/active_record/connection_adapters/connection_specification.rb:174:in `spec'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:50:in `establish_connection'
+  activerecord (4.2.10) lib/active_record/railtie.rb:122:in `block (2 levels) in <class:Railtie>'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:38:in `instance_eval'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:38:in `execute_hook'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:45:in `block in run_load_hooks'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:44:in `each'
+  activesupport (4.2.10) lib/active_support/lazy_load_hooks.rb:44:in `run_load_hooks'
+  activerecord (4.2.10) lib/active_record/base.rb:315:in `<module:ActiveRecord>'
+  activerecord (4.2.10) lib/active_record/base.rb:26:in `<top (required)>'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `require'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `block in require'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:240:in `load_dependency'
+  activesupport (4.2.10) lib/active_support/dependencies.rb:274:in `require'
+  activerecord (4.2.10) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:20:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.11) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.11) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.10) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.11) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.10) lib/rails/engine.rb:518:in `call'
+  railties (4.2.10) lib/rails/application.rb:165:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  rack (1.6.11) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.11) lib/rack/handler/webrick.rb:88:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:140:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:96:in `run'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/server.rb:290:in `block in start_thread'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (12.0ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.4ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (32.8ms)
+
+
+Started GET "/movies" for 168.131.151.113 at 2019-05-08 05:47:32 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+
+ActiveRecord::ConnectionNotEstablished (No connection pool for ActiveRecord::Base):
+  activerecord (4.2.10) lib/active_record/connection_adapters/abstract/connection_pool.rb:570:in `retrieve_connection'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+  activerecord (4.2.10) lib/active_record/connection_handling.rb:87:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:383:in `connection'
+  activerecord (4.2.10) lib/active_record/migration.rb:370:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.10) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.10) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:20:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.10) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.10) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.10) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.11) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.11) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.10) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.10) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.11) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.10) lib/rails/engine.rb:518:in `call'
+  railties (4.2.10) lib/rails/application.rb:165:in `call'
+  rack (1.6.11) lib/rack/lock.rb:17:in `call'
+  rack (1.6.11) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.11) lib/rack/handler/webrick.rb:88:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:140:in `service'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/httpserver.rb:96:in `run'
+  /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/webrick/server.rb:290:in `block in start_thread'
+
+
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.1ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (17.3ms)
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+
+%%% config/routes.rb 내용을 수정
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls config                                                                   
+application.rb  boot.rb  database.yml  environment.rb  environments  initializers  locales  routes.rb  secrets.yml
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat config/routes.rb
+Rails.application.routes.draw do
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
+
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
+
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+
+  # Example resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Example resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Example resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Example resource route with more complex sub-resources:
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', on: :collection
+  #     end
+  #   end
+
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
+
+  # Example resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+end
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+%%%
+
+Myrottenpotatoes::Application.routes.draw do
+  resources :movies
+  root :to => redirect('/movies')
+end
+
+
+%%% rake routes를 다시 실행하면 새로운 URI를 볼 수 있다.
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rake routes 
+    Prefix Verb   URI Pattern                Controller#Action
+    movies GET    /movies(.:format)          movies#index
+           POST   /movies(.:format)          movies#create
+ new_movie GET    /movies/new(.:format)      movies#new
+edit_movie GET    /movies/:id/edit(.:format) movies#edit
+     movie GET    /movies/:id(.:format)      movies#show
+           PATCH  /movies/:id(.:format)      movies#update
+           PUT    /movies/:id(.:format)      movies#update
+           DELETE /movies/:id(.:format)      movies#destroy
+      root GET    /                          redirect(301, /movies)
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+
+%%% app/controllers/movies_controller.rb를 아직 만들지 않음
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls app/controllers/
+application_controller.rb  concerns
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+
+%%% 4.2 Databases and Migrations
+
+%%% rails은 3가지 environment를 정의한다.
+%%%  - production, development, test
+%%%
+%%% 각 환경은 데이터베이스를 따로 가지고 있다.
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls config
+application.rb  boot.rb  database.yml  environment.rb  environments  initializers  locales  routes.rb  secrets.yml
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat config/database.yml
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default
+  database: db/production.sqlite3
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+%%% gem sqlite3를 설치함  ??? 필요하지 않음???
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ gem install sqlite3 
+Building native extensions.  This could take a while...
+Successfully installed sqlite3-1.4.1
+Parsing documentation for sqlite3-1.4.1
+Installing ri documentation for sqlite3-1.4.1
+Done installing documentation for sqlite3 after 0 seconds
+1 gem installed
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rails generate migration create_movies
+      invoke  active_record
+      create    db/migrate/20190508093003_create_movies.rb
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat db/migrate/20190508093003_create_movies.rb 
+class CreateMovies < ActiveRecord::Migration
+  def change
+    create_table :movies do |t|
+    end
+  end
+end
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls db
+development.sqlite3  migrate  seeds.rb
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls db/migrate
+20190508093003_create_movies.rb
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ 
+
+
+%%% db/migrate/20190508093003_create_movies.rb
+%%% 를 수정하여 테이블 스키마를 지정
+
+class CreateMovies < ActiveRecord::Migration
+  def change
+    create_table 'movies' do |t|
+      t.string 'title'
+      t.string 'rating'
+      t.text 'description'
+      t.datetime 'release_date'
+      # Add fields that let Rails automatically keep track
+      # of when movies are added or modified:
+      t.timestamps
+    end
+  end
+end
+
+
+
+
+%%% rake db:migrate를 실행하여 테이블을 새로 만듬
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rake db:migrate 
+== 20190508093003 CreateMovies: migrating =====================================
+-- create_table("movies")
+   -> 0.0008s
+== 20190508093003 CreateMovies: migrated (0.0016s) ============================
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ ls -al db
+total 28
+drwxrwxr-x  3 ec2-user ec2-user 4096 May  8 09:38 .
+drwxrwxr-x 13 ec2-user ec2-user 4096 May  8 05:44 ..
+-rw-r--r--  1 ec2-user ec2-user 5120 May  8 09:38 development.sqlite3
+drwxrwxr-x  2 ec2-user ec2-user 4096 May  8 09:30 migrate
+-rw-rw-r--  1 ec2-user ec2-user 1019 May  8 09:38 schema.rb
+-rw-rw-r--  1 ec2-user ec2-user  343 May  8 05:34 seeds.rb
+
+%%% 데이테버이스에 migration number를 저장하여
+%%% rake db:migrate를 실행하면 이 저장된 번호 이후의 migration만 진행함
+%%% 즉 아래와 같이 명령어를 다시 실행하면 아무 변화가 없음!
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rake db:migrate 
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ 
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat db/schema.rb
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20190508093003) do
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "title"
+    t.string   "rating"
+    t.text     "description"
+    t.datetime "release_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+end
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ cat db/development.sqlite3 
+'P++Ytablesqlite_sequencesqlite_sequenceCREATE TABLE sqlite_sequence(name,seq)^tablemoviesmoviesCREATE TABLE "movies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "rating" varchar, "description" text, "release_date" datetime, "created_at" datetime, "updated_at" datetime)=//indexunique_schema_migrationsschema_migrationsCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migra)20190508093003n")l//tableschema_migrationsschema_migrationsCREATE TABLE "schema_migrations" ("version" varchar NOT NULL)
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+%%% app/models/movie.rb 생성
+
+class Movie < ActiveRecord::Base
+end
+
+%%% 콘솔 모드로 rails을 실행하고
+%%% 데이터베이스를 활용해본다.
+
+####  Create
+starwars = Movie.create!(:title => 'Star Wars',
+  :release_date => '25/4/1977', :rating => 'PG')
+# note that numerical dates follow European format: dd/mm/yyyy
+requiem =  Movie.create!(:title => 'Requiem for a Dream',
+  :release_date => 'Oct 27, 2000', :rating => 'R')
+#  Creation using separate 'save' method, used when updating existing records
+field = Movie.new(:title => 'Field of Dreams',
+  :release_date => '21-Apr-89', :rating => 'PG')
+field.save!
+field.title = 'New Field of Dreams'
+####  Read
+pg_movies = Movie.where("rating = 'PG'")
+ancient_movies = Movie.where('release_date < :cutoff and rating = :rating',
+  :cutoff => 'Jan 1, 2000', :rating => 'PG')
+####  Another way to read
+Movie.find(3)  # exception if key not found
+####  Update
+starwars.update_attributes(:description => 'The best space western EVER',
+  :release_date => '25/5/1977')
+requiem.rating = 'NC-17'
+requiem.save!
+####  Delete
+requiem.destroy
+Movie.where('title = "Requiem for a Dream"')
+####  Find returns an enumerable
+Movie.where('rating = "PG"').each do |mov|
+  mov.destroy
+end
+
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rails console
+Loading development environment (Rails 4.2.10)
+2.4.0 :001 > starwars = Movie.create!(:title => 'Star Wars', :release_date => '25/4/1977', :rating => 'PG')
+   (0.0ms)  begin transaction
+  SQL (0.4ms)  INSERT INTO "movies" ("title", "release_date", "rating", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["title", "Star Wars"], ["release_date", "1977-04-25 00:00:00.000000"], ["rating", "PG"], ["created_at", "2019-05-08 10:02:34.093441"], ["updated_at", "2019-05-08 10:02:34.093441"]]
+   (5.5ms)  commit transaction
+ => #<Movie id: 1, title: "Star Wars", rating: "PG", description: nil, release_date: "1977-04-25 00:00:00", created_at: "2019-05-08 10:02:34", updated_at: "2019-05-08 10:02:34"> 
+2.4.0 :002 > requiem = Movie.create!(:title => 'Requiem for a Dream', :release_date => 'Oct 27, 2000', :rating => 'R')
+   (0.1ms)  begin transaction
+  SQL (0.1ms)  INSERT INTO "movies" ("title", "release_date", "rating", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["title", "Requiem for a Dream"], ["release_date", "2000-10-27 00:00:00.000000"], ["rating", "R"], ["created_at", "2019-05-08 10:03:28.954207"], ["updated_at", "2019-05-08 10:03:28.954207"]]
+   (5.6ms)  commit transaction
+ => #<Movie id: 2, title: "Requiem for a Dream", rating: "R", description: nil, release_date: "2000-10-27 00:00:00", created_at: "2019-05-08 10:03:28", updated_at: "2019-05-08 10:03:28"> 
+2.4.0 :003 > field = Movie.new(:title => 'Field of Dreams', :release_date => '21-Apri-89', :rating => 'PG')
+ => #<Movie id: nil, title: "Field of Dreams", rating: "PG", description: nil, release_date: "0089-04-21 00:00:00", created_at: nil, updated_at: nil> 
+2.4.0 :004 > field.save!
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  INSERT INTO "movies" ("title", "release_date", "rating", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["title", "Field of Dreams"], ["release_date", "0089-04-21 00:00:00.000000"], ["rating", "PG"], ["created_at", "2019-05-08 10:05:05.513293"], ["updated_at", "2019-05-08 10:05:05.513293"]]
+   (5.6ms)  commit transaction
+ => true 
+2.4.0 :005 > field.title = 'New Field of Dreams'
+ => "New Field of Dreams" 
+2.4.0 :006 > 
+2.4.0 :007 >   
+2.4.0 :008 >   pg_movies = Movie.where("rating = 'PG'")
+  Movie Load (0.2ms)  SELECT "movies".* FROM "movies" WHERE (rating = 'PG')
+ => #<ActiveRecord::Relation [#<Movie id: 1, title: "Star Wars", rating: "PG", description: nil, release_date: "1977-04-25 00:00:00", created_at: "2019-05-08 10:02:34", updated_at: "2019-05-08 10:02:34">, #<Movie id: 3, title: "Field of Dreams", rating: "PG", description: nil, release_date: "0089-04-21 00:00:00", created_at: "2019-05-08 10:05:05", updated_at: "2019-05-08 10:05:05">]> 
+2.4.0 :009 > 
+2.4.0 :010 > ancient_movies = Movie.where('release_date < :cutoff and rating = :rating', :cutoff => 'Jan 1, 2000', :rating => 'PG')    
+  Movie Load (0.2ms)  SELECT "movies".* FROM "movies" WHERE (release_date < 'Jan 1, 2000' and rating = 'PG')
+ => #<ActiveRecord::Relation [#<Movie id: 1, title: "Star Wars", rating: "PG", description: nil, release_date: "1977-04-25 00:00:00", created_at: "2019-05-08 10:02:34", updated_at: "2019-05-08 10:02:34">, #<Movie id: 3, title: "Field of Dreams", rating: "PG", description: nil, release_date: "0089-04-21 00:00:00", created_at: "2019-05-08 10:05:05", updated_at: "2019-05-08 10:05:05">]> 
+2.4.0 :011 > Movie.find(3)
+  Movie Load (0.2ms)  SELECT  "movies".* FROM "movies" WHERE "movies"."id" = ? LIMIT 1  [["id", 3]]
+ => #<Movie id: 3, title: "Field of Dreams", rating: "PG", description: nil, release_date: "0089-04-21 00:00:00", created_at: "2019-05-08 10:05:05", updated_at: "2019-05-08 10:05:05"> 
+2.4.0 :012 > starwars.update_attributes(:description => 'The best space western EVER', :release_date => '25/5/1977')
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  UPDATE "movies" SET "description" = ?, "release_date" = ?, "updated_at" = ? WHERE "movies"."id" = ?  [["description", "The best space western EVER"], ["release_date", "1977-05-25 00:00:00.000000"], ["updated_at", "2019-05-08 10:08:19.345327"], ["id", 1]]
+   (5.9ms)  commit transaction
+ => true 
+2.4.0 :013 > requiem.rating = 'NC-17'
+ => "NC-17" 
+2.4.0 :014 > requiem.save!
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  UPDATE "movies" SET "rating" = ?, "updated_at" = ? WHERE "movies"."id" = ?  [["rating", "NC-17"], ["updated_at", "2019-05-08 10:08:45.473593"], ["id", 2]]
+   (5.3ms)  commit transaction
+ => true 
+2.4.0 :015 > requiem.destroy
+   (0.1ms)  begin transaction
+  SQL (0.2ms)  DELETE FROM "movies" WHERE "movies"."id" = ?  [["id", 2]]
+   (4.3ms)  commit transaction
+ => #<Movie id: 2, title: "Requiem for a Dream", rating: "NC-17", description: nil, release_date: "2000-10-27 00:00:00", created_at: "2019-05-08 10:03:28", updated_at: "2019-05-08 10:08:45"> 
+2.4.0 :016 > Movie.where('title = "Requiem for a Dream"')
+  Movie Load (0.2ms)  SELECT "movies".* FROM "movies" WHERE (title = "Requiem for a Dream")
+ => #<ActiveRecord::Relation []> 
+2.4.0 :017 > Movie.where('rating = "PG"').each do |mov|
+2.4.0 :018 >     mov.destroy
+2.4.0 :019?>   end
+  Movie Load (0.2ms)  SELECT "movies".* FROM "movies" WHERE (rating = "PG")
+   (0.0ms)  begin transaction
+  SQL (0.1ms)  DELETE FROM "movies" WHERE "movies"."id" = ?  [["id", 1]]
+   (5.2ms)  commit transaction
+   (0.0ms)  begin transaction
+  SQL (0.1ms)  DELETE FROM "movies" WHERE "movies"."id" = ?  [["id", 3]]
+   (4.1ms)  commit transaction
+ => [#<Movie id: 1, title: "Star Wars", rating: "PG", description: "The best space western EVER", release_date: "1977-05-25 00:00:00", created_at: "2019-05-08 10:02:34", updated_at: "2019-05-08 10:08:19">, #<Movie id: 3, title: "Field of Dreams", rating: "PG", description: nil, release_date: "0089-04-21 00:00:00", created_at: "2019-05-08 10:05:05", updated_at: "2019-05-08 10:05:05">] 
+2.4.0 :020 > 
+
+
+%%% seed 몇 가지 데이터를 미리 데이터베이스에 넣어 둔다.
+%%%
+
+%%% db/seeds.rb에 아래 코드를 추가
+
+# Seed the RottenPotatoes DB with some movies.
+more_movies = [
+  {:title => 'Aladdin', :rating => 'G',
+    :release_date => '25-Nov-1992'},
+  {:title => 'When Harry Met Sally', :rating => 'R',
+    :release_date => '21-Jul-1989'},
+  {:title => 'The Help', :rating => 'PG-13',
+    :release_date => '10-Aug-2011'},
+  {:title => 'Raiders of the Lost Ark', :rating => 'PG',
+    :release_date => '12-Jun-1981'}
+]
+
+more_movies.each do |movie|
+  Movie.create!(movie)
+end
+
+%%% rake db:seed를 실행해서 데이터베이스에 추가
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rake db:seed
+kwanghoon:~/environment/work/myrottenpotatoes (master) $
+
+%%% rails console을 실행해서 데이터메이스 내용을 확인
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rails console
+Loading development environment (Rails 4.2.10)
+2.4.0 :001 > Movie.all
+  Movie Load (1.0ms)  SELECT "movies".* FROM "movies"
+ => #<ActiveRecord::Relation [#<Movie id: 4, title: "Aladdin", rating: "G", description: nil, release_date: "1992-11-25 00:00:00", created_at: "2019-05-08 10:32:54", updated_at: "2019-05-08 10:32:54">, #<Movie id: 5, title: "When Harry Met Sally", rating: "R", description: nil, release_date: "1989-07-21 00:00:00", created_at: "2019-05-08 10:32:54", updated_at: "2019-05-08 10:32:54">, #<Movie id: 6, title: "The Help", rating: "PG-13", description: nil, release_date: "2011-08-10 00:00:00", created_at: "2019-05-08 10:32:54", updated_at: "2019-05-08 10:32:54">, #<Movie id: 7, title: "Raiders of the Lost Ark", rating: "PG", description: nil, release_date: "1981-06-12 00:00:00", created_at: "2019-05-08 10:32:54", updated_at: "2019-05-08 10:32:54">]> 
+2.4.0 :002 >
+
+
+%%% controller와 view를 만든다.
+%%% app/controllers/movies_controllers.rb
+
+class MoviesController < ApplicationController
+  def index
+    @movies = Movie.all
+  end
+end
+
+%%% app/views/movies/index.html.haml
+%%% (movies 디렉토리를 새로 만듬)
+
+%h1 All Movies
+
+%table#movies
+  %thead
+    %tr
+      %th Movie Title
+      %th Rating
+      %th Release Date
+      %th More Info
+  %tbody
+    - @movies.each do |movie|
+      %tr
+        %td= movie.title 
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+
+
+%%%
+%%% 다시 서버를 실행하면
+%%% 데이터베이스에 미리 등록해놓은 영화 목록들을 보여주는 
+%%% 웹 페이지를 볼 수 있다.
+%%%
+
+kwanghoon:~/environment/work/myrottenpotatoes (master) $ rails server -p $PORT
+=> Booting WEBrick
+=> Rails 4.2.10 application starting in development on http://localhost:8080
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+[2019-05-08 13:23:12] INFO  WEBrick 1.3.1
+[2019-05-08 13:23:12] INFO  ruby 2.4.0 (2016-12-24) [x86_64-linux]
+[2019-05-08 13:23:12] INFO  WEBrick::HTTPServer#start: pid=30790 port=8080
+
+
+Started GET "/" for 168.131.151.113 at 2019-05-08 13:23:15 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  ActiveRecord::SchemaMigration Load (0.1ms)  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/movies" for 168.131.151.113 at 2019-05-08 13:23:15 +0000
+Cannot render console from 168.131.151.113! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by MoviesController#index as HTML
+  Movie Load (0.2ms)  SELECT "movies".* FROM "movies"
+  Rendered movies/index.html.haml within layouts/application (10.6ms)
+Completed 200 OK in 285ms (Views: 274.6ms | ActiveRecord: 0.4ms)
+
+
+%%% Rail's erb 대신 Haml을 사용하기 위해서
+%%%  - app/views/layouts/application.html.haml을 새로 만들고
+%%%  - app/views/layouts/application.html.erb를 삭제
+
+
+!!! 5
+%html
+  %head
+    %title RottenPotatoes!
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  %body
+    #main
+      = yield
+      
+
+
+%%% 서버를 새로 실행하여 확인
+
+%%% !!!5는 HTML5
+%%% yield를 하면 app/views/movies/index.html/haml을 실행
+
+
+%%% show 액션을 추가
+%%% - app/controllers/movies_controller.rb를 생성
+
+class MoviesController < ApplicationController
+  def index
+    @movies = Movie.all
+  end
+  
+  def show
+    id = params[:id] # retrieve movie ID from URI route
+    @movie = Movie.find(id) # look up movie by unique ID
+    # will render app/views/movies/show.html.haml by default
+  end
+end
+
+
+%%% show 뷰 템플릿도 함께 추가
+%%% - app/views/movies/show.html.haml
+
+
+%h2 Details about #{@movie.title}
+
+%ul#details
+  %li
+    Rating:
+    = @movie.rating
+  %li
+    Released on:
+    = @movie.release_date.strftime("%B %d, %Y")
+
+%h3 Description:
+
+%p#description= @movie.description
+
+= link_to 'Back to movie list', movies_path
+
+
+
+%%% 뷰를 예쁘게 꾸미기 위해서  css를 추가
+%%% - app/assets/stylesheets/application.css
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* Simple CSS styling for RottenPotatoes app */
+/* Add these lines to app/assets/stylesheets/application.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: White;
+  color: DarkSlateGrey;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 10pt;
+}
+div#main {
+  margin: 0;
+  padding: 0 20px 20px;
+}
+a {
+  background: transparent;
+  color: maroon;
+  text-decoration: underline;
+  font-weight: bold;
+}
+h1 {
+  color: maroon;
+  font-size: 150%;
+  font-style: italic;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid DarkSlateGrey;
+}
+h1.title {
+  margin: 0 0 1em;
+  padding: 10px;
+  background-color: orange;
+  color: white;
+  border-bottom: 4px solid gold;
+  font-size: 2em;
+  font-style: normal;
+}
+table#movies {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+table#movies th {
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: wheat;
+}
+table#movies th, table#movies td {
+  padding: 4px;
+  text-align: left;
+}
+#notice, #warning {
+  background: rosybrown;
+  margin: 1em 0;
+  padding: 4px;
+}
+form label {
+  display: block;
+  line-height: 25px;
+  font-weight: bold;
+  color: maroon;
+}
+
+
+%%% 서버를 다시 실행하면
+%%% 테이블 테두리가 보이고 폰트와 색을 확인할 수 있다.
+
+%%% 여기까지가 Sec 4.1 ~ Sec 4.4  (Model-View-Controllers)
+
+
+%%% Sec 4.5 Debugging
+
+%%% Sec 4.6 Form Submission: New and Create
+
+%%% app/views/movies/new.html.haml에 액션 new를 위한 폼을 포함하는 뷰를 생성
+
+%h2 Create New Movie
+
+= form_tag movies_path, :method => :post do
+
+  = label :movie, :title, 'Title'
+  = text_field :movie, :title
+
+  = label :movie, :rating, 'Rating'
+  = select :movie, :rating, ['G','PG','PG-13','R','NC-17']
+ 
+  = label :movie, :release_date, 'Released On'
+  = date_select :movie, :release_date
+
+  = submit_tag 'Save Changes'
+
+
+%%%  폼 아래에 new_movie_path룰 작성하여 링크를 추가한다.
+
+-# add to end of index.html.haml
+= link_to 'Add new movie', new_movie_path
+
+
+%%% movies_controller.rb에 new 메소드를 추가한다.
+
+  def new
+    @movie = Movie.new
+    # default: render 'new' template
+  end 
+
+
+%%% 서버를 실행하면 영화 목록 아래에 새로운 영화를 추가하기 위한
+%%% 웹 페이지로 전환되는 링크가 생겼다.
+%%% 이 링크를 누르면 위에서 추가한 view를 기반한 웹페이지가 나오고
+%%% 여기서 폼에 적절한 내용을 입력한 다음 Save Changes 버튼을 누르면
+%%% Create 뷰가 없다는 에러 메시지가 나온다.
+
+
+%%% 이 에러가 발생하는 원인을 스터디하기 위해 디버거를 사용하는 방법을 설명한다.
+
+  def create
+    debugger
+    params.require(:movie)
+    permitted=params[:movie].permit(:title,:rating,:release_date)
+    
+    @movie = Movie.create!(permitted)
+    ...
+    ...
+  end
+
+
+%%% 디버거 명령어
+  - n
+  - c
+  - p 
+
+
+%%% 이 문제를 해결하기 위해 Create를 app/controllers/movies_controller.rb에
+%%% 추가한다.
+
+
+  def create
+    params.require(:movie)
+    permitted=params[:movie].permit(:title,:rating,:release_date)
+    
+    @movie = Movie.create!(permitted)
+    flash[:notice] = "#{@movie.title} was successfully created."
+    redirect_to movies_path
+  end
+
+%%% Create 뷰는 New 뷰와 동일하기 때문에 새로 다시 만들지 않고
+%%% New 뷰로 리다이렉션하는 방법으로 구현하였다.
+
+%%% flash를 통한 메시지 출력이 웹 페이지에 보여지려면
+%%% 해당 뷰에 flash 내용을 보여주는 html을 생성하도록 수정해야 한다.
+%%% 메시지 출력은 모든 뷰에 공통 사항이므로
+%%% app/views/layouts/application.html.haml에 추가한다.
+
+!!! 5
+%html
+  %head
+    %title RottenPotatoes!
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  %body
+    #main
+      = yield
+      
+    - if flash[:notice]
+      #notice.message= flash[:notice]
+    - elsif flash[:warning]
+      #warning.message= flash[:warning]
+      
+
+
+%%% 서버를 실행하여 flash 메시지 출력 동작을 확인한다.
+
+
+
+%%% Sec. 4.8
+
+%%% edit/update를 추가한다.
+
+%%% 특정 영화를 선택했을때 뷰에 Edit info 링크를 추가한다.
+%%%  - app/views/movies/show.html.haml 뷰를 아래와 같이 수정
+
+%h2 Details about #{@movie.title}
+
+%ul#details
+  %li
+    Rating:
+    = @movie.rating
+  %li
+    Released on:
+    = @movie.release_date.strftime("%B %d, %Y")
+
+%h3 Description:
+
+%p#description= @movie.description
+
+= link_to 'Edit info', edit_movie_path(@movie)
+= link_to 'Back to movie list', movies_path
+
+%%% Edit info 링크를 위한 뷰를 새로 만든다.
+%%%  - app/views/movies/edit.html.haml
+
+%h2 Edit Movie
+
+= form_tag movie_path(@movie), :method => :put do
+
+  = label :movie, :title, 'Title'
+  = text_field :movie, 'title'
+
+  = label :movie, :rating, 'Rating'
+  = select :movie, :rating, ['G','PG','PG-13','R','NC-17']
+ 
+  = label :movie, :release_date, 'Released On'
+  = date_select :movie, :release_date
+
+  = submit_tag 'Save Changes'
+  
+
+%%% app/controllers/movies_controller.rb에 아래 코드를 추가
+
+  
+  def edit
+    @movie = Movie.find params[:id]
+  end
+
+  def update
+    @movie = Movie.find params[:id]
+    permitted = params[:movie].permit(:title,:rating,:release_date)
+    @movie.update_attributes!(permitted)
+    flash[:notice] = "#{@movie.title} was successfully updated."
+    redirect_to movie_path(@movie)
+  end
+
+%%% 서버를 실행하고 특정 영화를 선택해서 편집하고 Save Changes 버튼을
+%%% 눌러 갱신한다.
+
+
+%%% CRUD중 마지막 Destroy를 구현하자.
+
+
+%%% movies_controller.rb에 아래 코드를 추가
+
+def destroy
+  @movie = Movie.find(params[:id])
+  @movie.destroy
+  flash[:notice] = "Movie '#[@movie.title}' deleted."
+  redirect_to movie_path
+end
+
+
+%%% Edit Infor 뷰에 아래 destory 링크를 추가
+
+
+- link_to 'Delete', movie_path(@movie), :method => :delete
+
+
+### 서버를 실행하고 삭제(Destroy) 기능 확인!!!
+
+
