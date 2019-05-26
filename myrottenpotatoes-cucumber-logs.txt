@@ -1,0 +1,1130 @@
+
+
+%%% Chapter 7. Requirements: BDD and User Stories
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Section 7.7 Running Cucumber and Capybara
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 4장 myrottenpotatoes 로그를 따라 모두 실행한 프로젝트에서 시작하거나
+%%% edX 강의 hw3를 시작하기 위해 사용한 프로젝트 (gitub)에서 시작한다.
+
+
+%%% 프로젝트 Gemfile에 다음을 추가하여 Cucumber를 준비한다.
+%%% - https://gist.github.com/armandofox/c4d6569960f133101720
+%%%
+
+# add to end of Gemfile
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels' # some pre-fabbed step definitions  
+  gem 'database_cleaner' # to clear Cucumber's test database between runs
+  gem 'capybara'         # lets Cucumber pretend to be a web browser
+  gem 'launchy'          # a useful debugging aid for user stories
+end
+
+
+%%% 참고로 Cucumber는 production이나 development 환경이 아니라 test 환경에서만
+%%% 사용한다.
+
+%%% bundle install --without production을 실행한다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ bundle install --without production
+Fetching gem metadata from https://rubygems.org/............
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies...
+Using rake 12.3.1
+Using concurrent-ruby 1.0.5
+Using i18n 0.9.5
+Using minitest 5.11.3
+Using thread_safe 0.3.6
+Using tzinfo 1.2.5
+Using activesupport 4.2.10
+Using builder 3.2.3
+Using erubis 2.7.0
+Using mini_portile2 2.3.0
+Using nokogiri 1.8.2
+Using rails-deprecated_sanitizer 1.0.3
+Using rails-dom-testing 1.0.9
+Using crass 1.0.4
+Using loofah 2.2.2
+Using rails-html-sanitizer 1.0.4
+Using actionview 4.2.10
+Using rack 1.6.10
+Using rack-test 0.6.3
+Using actionpack 4.2.10
+Using globalid 0.4.1
+Using activejob 4.2.10
+Using mini_mime 1.0.0
+Using mail 2.7.0
+Using actionmailer 4.2.10
+Using activemodel 4.2.10
+Using arel 6.0.4
+Using activerecord 4.2.10
+Using public_suffix 3.0.3
+Fetching addressable 2.6.0
+Installing addressable 2.6.0
+Fetching backports 3.15.0
+Installing backports 3.15.0
+Using debug_inspector 0.0.3
+Using binding_of_caller 0.8.0
+Using bundler 1.17.3
+Using byebug 10.0.2
+Fetching regexp_parser 1.5.1
+Installing regexp_parser 1.5.1
+Fetching xpath 3.2.0
+Installing xpath 3.2.0
+Fetching capybara 3.21.0
+Installing capybara 3.21.0
+Using coderay 1.1.2
+Using coffee-script-source 1.12.2
+Using execjs 2.7.0
+Using coffee-script 2.4.1
+Using thor 0.20.0
+Using railties 4.2.10
+Using coffee-rails 4.1.1
+Fetching cucumber-tag_expressions 1.1.1
+Installing cucumber-tag_expressions 1.1.1
+Fetching gherkin 5.1.0
+Installing gherkin 5.1.0
+Fetching cucumber-core 3.2.1
+Installing cucumber-core 3.2.1
+Fetching cucumber-expressions 6.0.1
+Installing cucumber-expressions 6.0.1
+Fetching cucumber-wire 0.0.1
+Installing cucumber-wire 0.0.1
+Using diff-lcs 1.3
+Using multi_json 1.13.1
+Using multi_test 0.1.2
+Fetching cucumber 3.1.2
+Installing cucumber 3.1.2
+Fetching mime-types-data 3.2019.0331
+Installing mime-types-data 3.2019.0331
+Fetching mime-types 3.2.2
+Installing mime-types 3.2.2
+Fetching cucumber-rails 1.7.0
+Installing cucumber-rails 1.7.0
+Fetching cucumber-rails-training-wheels 1.0.0
+Installing cucumber-rails-training-wheels 1.0.0
+Fetching database_cleaner 1.7.0
+Installing database_cleaner 1.7.0
+Using ffi 1.9.23
+Using formatador 0.2.5
+Using rb-fsevent 0.10.3
+Using rb-inotify 0.9.10
+Using ruby_dep 1.5.0
+Using listen 3.1.5
+Using lumberjack 1.0.13
+Using nenv 0.3.0
+Using shellany 0.0.1
+Using notiffany 0.1.1
+Using method_source 0.9.0
+Using pry 0.11.3
+Using guard 2.14.2
+Using guard-compat 1.2.1
+Using rspec-support 3.7.1
+Using rspec-core 3.7.1
+Using rspec-expectations 3.7.0
+Using rspec-mocks 3.7.0
+Using rspec 3.7.0
+Using guard-rspec 4.7.3
+Using temple 0.8.0
+Using tilt 2.0.8
+Using haml 5.0.4
+Using multi_xml 0.6.0
+Using httparty 0.16.2
+Using jbuilder 2.7.0
+Using jquery-rails 4.3.3
+Using json 1.8.6
+Using launchy 2.4.3
+Using sprockets 3.7.1
+Using sprockets-rails 3.2.1
+Using rails 4.2.10
+Using rdoc 4.3.0
+Using rspec-rails 3.7.2
+Using sass-listen 4.0.0
+Using sass 3.5.6
+Using sass-rails 5.0.7
+Using sdoc 0.4.2
+Using spring 2.0.2
+Using sqlite3 1.3.13
+Using themoviedb 1.0.1
+Using turbolinks-source 5.1.0
+Using turbolinks 5.1.1
+Using uglifier 4.1.10
+Using web-console 2.3.0
+Bundle complete! 23 Gemfile dependencies, 104 gems now installed.
+Gems in the group production were not installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% Cucumber와 Capybara에서 필요한 디렉토리와 "boilerplate" 파일을 셋업한다.
+%%%
+%%% 아래 두 명령어를 실행한다. 
+%%% - rails generate cucumber:install capybara
+%%% - rails generate cucumber_rails_training_wheels:install
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ rails generate cucumber:install capybara 
+Array values in the parameter to `Gem.paths=` are deprecated.
+Please use a String or nil.
+An Array ({"GEM_PATH"=>["/usr/local/rvm/gems/ruby-2.4.0", "/usr/local/rvm/gems/ruby-2.4.0@global"]}) was passed in from bin/rails:3:in `load'
+Running via Spring preloader in process 5182
+      create  config/cucumber.yml
+      create  script/cucumber
+       chmod  script/cucumber
+      create  features/step_definitions
+      create  features/step_definitions/.gitkeep
+      create  features/support
+      create  features/support/env.rb
+       exist  lib/tasks
+      create  lib/tasks/cucumber.rake
+        gsub  config/database.yml
+        gsub  config/database.yml
+       force  config/database.yml
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ rails generate cucumber_rails_training_wheels:install
+Array values in the parameter to `Gem.paths=` are deprecated.
+Please use a String or nil.
+An Array ({"GEM_PATH"=>["/usr/local/rvm/gems/ruby-2.4.0", "/usr/local/rvm/gems/ruby-2.4.0@global"]}) was passed in from bin/rails:3:in `load'
+Running via Spring preloader in process 5205
+       exist  features/step_definitions
+      create  features/step_definitions/web_steps.rb
+       exist  features/support
+      create  features/support/paths.rb
+      create  features/support/selectors.rb
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master)  $
+
+
+%%% features/step_definitions/web_steps.rb 파일을 비롯하여 features 디렉토리에
+%%% 몇 가지 파일이 생성되었다.
+
+%%% web_steps.rb의 내용이 무엇인지 들여다 보시오.
+
+
+%%% Cucumber를 실행하기 전에 테스트 환경 데이터베이스를 만들어야 한다.
+%%% 그리고, 데이터베이스 스키마를 변경할 때마다 이 명령어를 실행한다.
+%%%  - rake db:test:prepare
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ rake db:test:prepare
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 이제 Cucumber를 시작할 준비가 되었다.
+%%% 
+
+%%% features 디렉토리에 .feature 확장자의 파일을 추가하자.
+
+%%% 아래 내용의 AddMovie.feature 파일을 추가한다.
+%%% - https://gist.github.com/armandofox/d7011bcf6463535a18cf
+
+%%% AddMovie.feature:
+
+Feature: User can manually add movie
+
+Scenario: Add a movie
+  Given I am on the RottenPotatoes home page
+  When I follow "Add new movie"
+  Then I should be on the Create New Movie page
+  When I fill in "Title" with "Men In Black"
+  And I select "PG-13" from "Rating"
+  And I press "Save Changes"
+  Then I should be on the RottenPotatoes home page
+  And I should see "Men In Black"
+
+
+%%% 추가한 시나리오를 cucumber로 실행한다.
+%%% - cucumber features/AddMovie.feature
+
+
+%%% 정상적으로 실행되기 전에 다음과 같은 문제가 발생하여 ...
+%%% Gemfile을 수정하는 첫 번째 옵션보다
+%%% app/config/test.rb에 configuration을 추가하는 두 번째 옵션을 선택하였다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/AddMovie.feature
+Web Console is activated in the test environment, which is
+usually a mistake. To ensure it's only activated in development
+mode, move it to the development group of your Gemfile:
+
+    gem 'web-console', group: :development
+
+If you still want to run it the test environment (and know
+what you are doing), put this in your Rails application
+configuration:
+
+    config.web_console.development_only = false
+
+%%% app/config/test.rb에 바로 위 문장을 추가
+
+
+%%% 다시 cucumber로 AddMovie.feature를 실행하면 일단 정상적으로 동작한다.
+
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/AddMovie.feature
+Using the default profile...
+Feature: User can manually add movie
+
+  Scenario: Add a movie                              # features/AddMovie.feature:3
+    Given I am on the RottenPotatoes home page       # features/step_definitions/web_steps.rb:44
+      Can't find mapping from "the RottenPotatoes home page" to a path.
+      Now, go and add a mapping in /home/ec2-user/environment/work/saas/hw/rottenpotatoes-rails-intro/features/support/paths.rb (RuntimeError)
+      ./features/support/paths.rb:31:in `rescue in path_to'
+      ./features/support/paths.rb:26:in `path_to'
+      ./features/step_definitions/web_steps.rb:45:in `/^(?:|I )am on (.+)$/'
+      features/AddMovie.feature:4:in `Given I am on the RottenPotatoes home page'
+    When I follow "Add new movie"                    # features/step_definitions/web_steps.rb:56
+    Then I should be on the Create New Movie page    # features/step_definitions/web_steps.rb:230
+    When I fill in "Title" with "Men In Black"       # features/step_definitions/web_steps.rb:60
+    And I select "PG-13" from "Rating"               # features/step_definitions/web_steps.rb:85
+    And I press "Save Changes"                       # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page # features/step_definitions/web_steps.rb:230
+    And I should see "Men In Black"                  # features/step_definitions/web_steps.rb:105
+
+Failing Scenarios:
+cucumber features/AddMovie.feature:3 # Scenario: Add a movie
+
+1 scenario (1 failed)
+8 steps (1 failed, 7 skipped)
+0m0.042s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 물론 feature 시나리오의 첫 번째 Given에서 오류가 발생하고,
+%%%
+%%%  -   Given I am on the RottenPotatoes home page
+%%%
+%%% 오류가 발생한 Given 다음부터 실행하지 않았다. 
+
+
+%%% 교재에 준비된 동영상 
+%%%  - https://www.youtube.com/watch?v=-wgZXDmhRw4&feature=youtu.be
+
+%%% 동영상의 설명대로 따라한다.
+
+%%% Given에서 오류가 발생한 이유는 fetures/support/paths.rb에
+%%% 이 Given에서 언급한 the RottenPotatoes home page와 매치하는 경로가 없기 때문이다.
+
+%%% 현재 paths.rb를 보면 다음과 같다. 
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cat features/support/paths.rb
+# TL;DR: YOU SHOULD DELETE THIS FILE
+#
+# This file is used by web_steps.rb, which you should also delete
+#
+# You have been warned
+module NavigationHelpers
+  # Maps a name to a path. Used by the
+  #
+  #   When /^I go to (.+)$/ do |page_name|
+  #
+  # step definition in web_steps.rb
+  #
+  def path_to(page_name)
+    case page_name
+
+    when /^the home\s?page$/
+      '/'
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
+
+    else
+      begin
+        page_name =~ /^the (.*) page$/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue NoMethodError, ArgumentError
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
+    end
+  end
+end
+
+World(NavigationHelpers)
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+%%% 여기에 에러 메시지 중에서 the RottenPotatoes home page 부분을 복사하여 
+
+      Can't find mapping from "the RottenPotatoes home page" to a path.
+
+
+%%% paths.rb에 이 텍스트를 매치하는 부분을 추가하고,
+
+    when /^the RottenPotatoes home page/
+
+%%% rake routes를 실행하여
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ rake routes
+    Prefix Verb   URI Pattern                  Controller#Action
+      root GET    /                            movies#index
+    movies GET    /movies(.:format)            movies#index
+           POST   /movies(.:format)            movies#create
+ new_movie GET    /movies/new(.:format)        movies#new
+edit_movie GET    /movies/:id/edit(.:format)   movies#edit
+     movie GET    /movies/:id(.:format)        movies#show
+           PATCH  /movies/:id(.:format)        movies#update
+           PUT    /movies/:id(.:format)        movies#update
+           DELETE /movies/:id(.:format)        movies#destroy
+    sortby GET    /movies/sortby/:id(.:format) movies#sortby
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+%%% /movies 부분을 복하여 paths.rb에 경로로 추가한다.
+
+    when /^the RottenPotatoes home page/
+      '/movies'
+
+%%% 최종 paths.rb 내용은 다음과 같다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ !cat
+cat features/support/paths.rb
+# TL;DR: YOU SHOULD DELETE THIS FILE
+#
+# This file is used by web_steps.rb, which you should also delete
+#
+# You have been warned
+module NavigationHelpers
+  # Maps a name to a path. Used by the
+  #
+  #   When /^I go to (.+)$/ do |page_name|
+  #
+  # step definition in web_steps.rb
+  #
+  def path_to(page_name)
+    case page_name
+
+    when /^the home\s?page$/
+      '/'
+    when /^the RottenPotatoes home page/
+      '/movies'  
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
+
+    else
+      begin
+        page_name =~ /^the (.*) page$/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue NoMethodError, ArgumentError
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
+    end
+  end
+end
+
+World(NavigationHelpers)
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 다시 cucumber를 실행한다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber
+Using the default profile...
+Feature: User can manually add movie
+
+  Scenario: Add a movie                              # features/AddMovie.feature:3
+    Given I am on the RottenPotatoes home page       # features/step_definitions/web_steps.rb:44
+    When I follow "Add new movie"                    # features/step_definitions/web_steps.rb:56
+    Then I should be on the Create New Movie page    # features/step_definitions/web_steps.rb:230
+      Can't find mapping from "the Create New Movie page" to a path.
+      Now, go and add a mapping in /home/ec2-user/environment/work/saas/hw/rottenpotatoes-rails-intro/features/support/paths.rb (RuntimeError)
+      ./features/support/paths.rb:33:in `rescue in path_to'
+      ./features/support/paths.rb:28:in `path_to'
+      ./features/step_definitions/web_steps.rb:233:in `/^(?:|I )should be on (.+)$/'
+      features/AddMovie.feature:6:in `Then I should be on the Create New Movie page'
+    When I fill in "Title" with "Men In Black"       # features/step_definitions/web_steps.rb:60
+    And I select "PG-13" from "Rating"               # features/step_definitions/web_steps.rb:85
+    And I press "Save Changes"                       # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page # features/step_definitions/web_steps.rb:230
+    And I should see "Men In Black"                  # features/step_definitions/web_steps.rb:105
+
+Failing Scenarios:
+cucumber features/AddMovie.feature:3 # Scenario: Add a movie
+
+1 scenario (1 failed)
+8 steps (1 failed, 5 skipped, 2 passed)
+0m0.396s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 앞 두 줄은 통과해서 녹색으로 바뀌었고 세번째 Then I should be on the Create New Movie page가
+%%% 붉은색으로 에러가 발생한다.
+
+
+%%% 앞의 과정을 반복한다.
+%%% 1) 에러가 난 the Create New Movie page를 복사하여 paths.rb에 매치 조건으로 추가한다.
+%%% 2) rake routes에서 새 영화를 생성하는 경로를 찾아 추가한다. /movies/new
+
+%%% 이렇게 수정한 paths.rb는 다음과 같다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ !cat
+cat features/support/paths.rb
+# TL;DR: YOU SHOULD DELETE THIS FILE
+#
+# This file is used by web_steps.rb, which you should also delete
+#
+# You have been warned
+module NavigationHelpers
+  # Maps a name to a path. Used by the
+  #
+  #   When /^I go to (.+)$/ do |page_name|
+  #
+  # step definition in web_steps.rb
+  #
+  def path_to(page_name)
+    case page_name
+
+    when /^the home\s?page$/
+      '/'
+    when /^the RottenPotatoes home page/
+      '/movies'  
+    when /^the Create New Movie page/
+      '/movies/new'  
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
+
+    else
+      begin
+        page_name =~ /^the (.*) page$/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue NoMethodError, ArgumentError
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
+    end
+  end
+end
+
+World(NavigationHelpers)
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 이제 다시 cucumber를 돌려보면 ... Add a Movie 시나리오는 모두 통과한다!!
+
+
+
+wanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber
+Using the default profile...
+Feature: User can manually add movie
+
+  Scenario: Add a movie                              # features/AddMovie.feature:3
+    Given I am on the RottenPotatoes home page       # features/step_definitions/web_steps.rb:44
+    When I follow "Add new movie"                    # features/step_definitions/web_steps.rb:56
+    Then I should be on the Create New Movie page    # features/step_definitions/web_steps.rb:230
+    When I fill in "Title" with "Men In Black"       # features/step_definitions/web_steps.rb:60
+    And I select "PG-13" from "Rating"               # features/step_definitions/web_steps.rb:85
+    And I press "Save Changes"                       # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page # features/step_definitions/web_steps.rb:230
+    And I should see "Men In Black"                  # features/step_definitions/web_steps.rb:105
+
+1 scenario (1 passed)
+8 steps (8 passed)
+0m0.285s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 첫 번째 동영상 완료.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Section 7.8 Enhancing RottenPotatoes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% The Open Movie Dtabase (TMDb)에서 영화 정보를 찾아 RottenPotatoe에 추가하는 시나리오를
+%%% 새로 만들려고 한다.
+
+%%% TMDb는 API를 제공하고 SOA(Service oriented architecture)에서 영화 정보를 제공한다.
+
+%%% 7장에서는 그림 7.6의 UI 스토리보드 (Lo-fi UI sketces)와 같이 TMDb 연동을 설계하고
+%%% "fake" 코드로 시나리오 흐름을 완성한다.
+
+%%% 8장에서 TDD (Test-drivien development) 주제를 다루면서 실제 코드를 완성한다.
+
+
+%%% 영화 목록을 모두 보여주는 페이지에 탐색 박스를 추가하여 영화에 대한 키워드를 입력하고
+%%% Search 버튼을 누르면 TMDb에서 이 키워드를 포함하는 제목의 영화들을 찾는다.
+
+%%% 1) Happy path: 찾는데 성공하면 영화 목록 중 첫 번째 영화를 선택하여 Add New Movie 페이지에
+%%%    일부 항목을 미리 입력한다.
+
+%%% 2) Sad path: 실패하면, 영화 목록을 보여주는 첫 화면으로 다시 돌아가되 탐색 에러 메시지를
+%%%    보여준다.
+
+
+%%% 1) Happy path는 8장에서 구현하고, 7장에서는 2) Sad path만 구현한다. 슬프게도...
+%%%    (이번 학기에는 8장 TDD까지 다룰 시간이 있을지 확실하지 않아서)
+
+%%% features/search_tmdb.feature 파일을 추가하고
+%%% 2) Sad path 시나리오를 작성한다.
+%%%   - https://gist.github.com/armandofox/6a08923c2c0c04c6c1f0
+
+
+Feature: User can add movie by searching for it in The Movie Database (TMDb)
+
+  As a movie fan
+  So that I can add new movies without manual tedium
+  I want to add movies by looking up their details in TMDb
+
+Scenario: Try to add nonexistent movie (sad path)
+
+  Given I am on the RottenPotatoes home page
+  Then I should see "Search TMDb for a movie"
+  When I fill in "Search Terms" with "Movie That Does Not Exist"
+  And I press "Search TMDb"
+  Then I should be on the RottenPotatoes home page
+  And I should see "'Movie That Does Not Exist' was not found in TMDb."
+
+%%% cucumber를 실행한다. 
+%%%   - cucumber features/search_tmdb.feature 
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/search_tmdb.feature 
+Using the default profile...
+Feature: User can add movie by searching for it in The Movie Database (TMDb)
+  As a movie fan
+  So that I can add new movies without manual tedium
+  I want to add movies by looking up their details in TMDb
+
+  Scenario: Try to add nonexistent movie (sad path)                       # features/search_tmdb.feature:8
+    Given I am on the RottenPotatoes home page                            # features/step_definitions/web_steps.rb:44
+    Then I should see "Search TMDb for a movie"                           # features/step_definitions/web_steps.rb:105
+      expected to find text "Search TMDb for a movie" in "Rotten Potatoes!\nAll Movies\nInclude: G PG PG-13 R\nMovie Title Rating Release Date More Info\nAdd new movie" (RSpec::Expectations::ExpectationNotMetError)
+      ./features/step_definitions/web_steps.rb:107:in `/^(?:|I )should see "([^"]*)"$/'
+      features/search_tmdb.feature:11:in `Then I should see "Search TMDb for a movie"'
+    When I fill in "Search Terms" with "Movie That Does Not Exist"        # features/step_definitions/web_steps.rb:60
+    And I press "Search TMDb"                                             # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page                      # features/step_definitions/web_steps.rb:230
+    And I should see "'Movie That Does Not Exist' was not found in TMDb." # features/step_definitions/web_steps.rb:105
+
+Failing Scenarios:
+cucumber features/search_tmdb.feature:8 # Scenario: Try to add nonexistent movie (sad path)
+
+1 scenario (1 failed)
+6 steps (1 failed, 4 skipped, 1 passed)
+0m0.240s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ 
+
+
+%%% 시나리오의 두 번째 줄 Then I shold see "Search TMDB for a movie"에서 에러가 발생했다.
+%%% 즉, index.html (또는 index.html.haml)에서 이 텍스트 문구가 없다.
+
+%%% 그래서 뷰 index.html.haml에 TMDb 탐색과 관련된 아래 내용을 추가한다.
+%%%  - https://gist.github.com/armandofox/e9125584f9f08ece12a3
+
+
+-# add to end of app/views/movies/index.html.haml:
+%h1 Search TMDb for a movie
+
+= form_tag :action => 'search_tmdb' do
+
+  %label{:for => 'search_terms'} Search Terms
+  = text_field_tag 'search_terms'
+  = submit_tag 'Search TMDb'
+
+
+%%% 태그 h1에 feature 시나리오에서 요구하는 텍스트를 포함됨을 알 수 있다.
+
+%%% 참고로, 7장 BDD에서 다루지 않고 8장 TDD에서 다루는 내용이지만
+%%%    시나리오의 "Search Terms"와 label 태그의 :for 키워드로 search_terms를 지정하였고
+%%%    text_field_tag 태그의 id로 동일한 search_terms로 지정하여
+%%%     input 태그의 입력을 컨트롤러에서 참조할 때 이 키워드를 사용하도록 하였다.
+
+%%% 아직 더 추가해야할 사항이 있지만 일단 cucumber를 실행해보자.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/search_tmdb.feature 
+Using the default profile...
+Feature: User can add movie by searching for it in The Movie Database (TMDb)
+  As a movie fan
+  So that I can add new movies without manual tedium
+  I want to add movies by looking up their details in TMDb
+
+
+ActionView::Template::Error: No route matches {:action=>"search_tmdb", :controller=>"movies"}
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/formatter.rb:46:in `generate'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:721:in `generate'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:752:in `generate'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:799:in `url_for'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/url_for.rb:156:in `url_for'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/routing_url_for.rb:94:in `url_for'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/helpers/form_tag_helper.rb:818:in `block in html_options_for_form'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/helpers/form_tag_helper.rb:814:in `tap'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/helpers/form_tag_helper.rb:814:in `html_options_for_form'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/helpers/form_tag_helper.rb:68:in `form_tag'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/haml-5.0.4/lib/haml/helpers/action_view_mods.rb:118:in `form_tag_with_haml'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/haml-5.0.4/lib/haml/helpers/action_view_xss_mods.rb:19:in `form_tag_with_haml_xss'
+        from /home/ec2-user/environment/work/saas/hw/rottenpotatoes-rails-intro/app/views/movies/index.html.haml:32:in `_app_views_movies_index_html_haml__4204485517519909979_36754440'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/template.rb:145:in `block in render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:166:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/template.rb:333:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/template.rb:143:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/template_renderer.rb:54:in `block (2 levels) in render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/abstract_renderer.rb:39:in `block in instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:164:in `block in instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:164:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/abstract_renderer.rb:39:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/template_renderer.rb:53:in `block in render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/template_renderer.rb:61:in `render_with_layout'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/template_renderer.rb:52:in `render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/template_renderer.rb:14:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/renderer.rb:46:in `render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/renderer/renderer.rb:27:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/rendering.rb:100:in `_render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/streaming.rb:217:in `_render_template'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/rendering.rb:83:in `render_to_body'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rendering.rb:32:in `render_to_body'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/renderers.rb:37:in `render_to_body'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/rendering.rb:25:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rendering.rb:16:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+        from /usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/benchmark.rb:308:in `realtime'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/core_ext/benchmark.rb:12:in `ms'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/railties/controller_runtime.rb:25:in `cleanup_view_runtime'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:43:in `render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/base.rb:198:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rendering.rb:10:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:117:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:555:in `block (2 levels) in compile'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:505:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:92:in `__run_callbacks__'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:778:in `_run_process_action_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:81:in `run_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/callbacks.rb:19:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rescue.rb:29:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:164:in `block in instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:164:in `instrument'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/base.rb:137:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/rendering.rb:30:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal.rb:196:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal.rb:237:in `block in action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:43:in `serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:43:in `block in serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:30:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:30:in `serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:817:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/etag.rb:24:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/conditionalget.rb:25:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/head.rb:13:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/flash.rb:260:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/session/abstract/id.rb:225:in `context'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/session/abstract/id.rb:220:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/cookies.rb:560:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/query_cache.rb:36:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:81:in `run_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:28:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:18:in `catch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:18:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-rails-1.7.0/lib/cucumber/rails/action_controller.rb:11:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:38:in `call_app'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:20:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:68:in `block in tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:26:in `tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:68:in `tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:20:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/request_id.rb:21:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/methodoverride.rb:22:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/runtime.rb:18:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/lock.rb:17:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/static.rb:120:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/sendfile.rb:113:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/engine.rb:518:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/application.rb:165:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:66:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:50:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:50:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/mock_session.rb:30:in `request'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/test.rb:244:in `process_request'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/test.rb:58:in `get'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:65:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:43:in `process_and_follow_redirects'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:23:in `visit'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/driver.rb:45:in `visit'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/session.rb:277:in `visit'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/dsl.rb:51:in `block (2 levels) in <module:DSL>'
+        from /home/ec2-user/environment/work/saas/hw/rottenpotatoes-rails-intro/features/step_definitions/web_steps.rb:45:in `block in <top (required)>'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:39:in `instance_exec'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:39:in `block in cucumber_instance_exec_in'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:54:in `cucumber_run_with_backtrace_filtering'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:27:in `cucumber_instance_exec_in'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/step_definition.rb:110:in `invoke'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/step_match.rb:31:in `invoke'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/step_match.rb:24:in `block in activate'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/action.rb:24:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/step.rb:32:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:104:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:51:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:27:in `test_step'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/step.rb:17:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:28:in `block (3 levels) in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:27:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:27:in `block (2 levels) in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/prepare_world.rb:22:in `block in test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/around_hook.rb:17:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:104:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:51:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:34:in `around_hook'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/around_hook.rb:12:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:120:in `block (2 levels) in compose_around_hooks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:121:in `compose_around_hooks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:26:in `block in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:19:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/prepare_world.rb:11:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:57:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/retry.rb:18:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/quit.rb:12:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:21:in `block in done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:20:in `map'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:20:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/filters/locations_filter.rb:20:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/filters/tag_filter.rb:18:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/compiler.rb:24:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/gherkin/parser.rb:39:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core.rb:32:in `parse'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core.rb:21:in `compile'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/runtime.rb:75:in `run!'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/cli/main.rb:34:in `execute!'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/bin/cucumber:9:in `<top (required)>'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/cucumber:23:in `load'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/cucumber:23:in `<main>'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:24:in `eval'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:24:in `<main>'
+  Scenario: Try to add nonexistent movie (sad path)                       # features/search_tmdb.feature:8
+    Given I am on the RottenPotatoes home page                            # features/step_definitions/web_steps.rb:44
+      No route matches {:action=>"search_tmdb", :controller=>"movies"} (ActionView::Template::Error)
+      ./app/views/movies/index.html.haml:32:in `_app_views_movies_index_html_haml__4204485517519909979_36754440'
+      ./features/step_definitions/web_steps.rb:45:in `/^(?:|I )am on (.+)$/'
+      features/search_tmdb.feature:10:in `Given I am on the RottenPotatoes home page'
+    Then I should see "Search TMDb for a movie"                           # features/step_definitions/web_steps.rb:105
+    When I fill in "Search Terms" with "Movie That Does Not Exist"        # features/step_definitions/web_steps.rb:60
+    And I press "Search TMDb"                                             # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page                      # features/step_definitions/web_steps.rb:230
+    And I should see "'Movie That Does Not Exist' was not found in TMDb." # features/step_definitions/web_steps.rb:105
+
+Failing Scenarios:
+cucumber features/search_tmdb.feature:8 # Scenario: Try to add nonexistent movie (sad path)
+
+1 scenario (1 failed)
+6 steps (1 failed, 5 skipped)
+0m0.072s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+%%% 에러 메시지를 잘 살펴보면 핵심 내용은 뷰에서 언급한 search_tmdb가 없다는 것이다.
+
+ActionView::Template::Error: No route matches {:action=>"search_tmdb", :controller=>"movies"}
+
+%%% 따라서 아래와 같이 경로를 추가한다. 
+
+%%% config/routes.rb에 search_tmdb 액션에 폼 제출  (POST) 경로를 추가한다.
+%%%  - https://gist.github.com/armandofox/b24fdecfd84e1cb55d34
+
+
+# add to routes.rb, just before or just after 'resources :movies' :
+
+# Route that posts 'Search TMDb' form
+post '/movies/search_tmdb'
+
+
+%%% 역시 아직 추가할 내용이 더 있지만 일단 cucumber를 실행해본다.
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/search_tmdb.feature 
+Using the default profile...
+Feature: User can add movie by searching for it in The Movie Database (TMDb)
+  As a movie fan
+  So that I can add new movies without manual tedium
+  I want to add movies by looking up their details in TMDb
+
+  Scenario: Try to add nonexistent movie (sad path)                       # features/search_tmdb.feature:8
+    Given I am on the RottenPotatoes home page                            # features/step_definitions/web_steps.rb:44
+    Then I should see "Search TMDb for a movie"                           # features/step_definitions/web_steps.rb:105
+    When I fill in "Search Terms" with "Movie That Does Not Exist"        # features/step_definitions/web_steps.rb:60
+
+AbstractController::ActionNotFound: The action 'search_tmdb' could not be found for MoviesController
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/abstract_controller/base.rb:132:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionview-4.2.10/lib/action_view/rendering.rb:30:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal.rb:196:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_controller/metal.rb:237:in `block in action'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:43:in `serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:43:in `block in serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:30:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/journey/router.rb:30:in `serve'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/routing/route_set.rb:817:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/etag.rb:24:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/conditionalget.rb:38:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/head.rb:13:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/flash.rb:260:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/session/abstract/id.rb:225:in `context'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/session/abstract/id.rb:220:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/cookies.rb:560:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/query_cache.rb:36:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/callbacks.rb:81:in `run_callbacks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:28:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:18:in `catch'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/web-console-2.3.0/lib/web_console/middleware.rb:18:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-rails-1.7.0/lib/cucumber/rails/action_controller.rb:11:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:38:in `call_app'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:20:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:68:in `block in tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:26:in `tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/tagged_logging.rb:68:in `tagged'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/rack/logger.rb:20:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/request_id.rb:21:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/methodoverride.rb:22:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/runtime.rb:18:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/activesupport-4.2.10/lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/lock.rb:17:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/static.rb:120:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/sendfile.rb:113:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/engine.rb:518:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/railties-4.2.10/lib/rails/application.rb:165:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:66:in `block in call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:50:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-1.6.10/lib/rack/urlmap.rb:50:in `call'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/mock_session.rb:30:in `request'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/test.rb:244:in `process_request'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/rack-test-0.6.3/lib/rack/test.rb:67:in `post'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:65:in `process'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:43:in `process_and_follow_redirects'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/browser.rb:33:in `submit'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/form.rb:43:in `submit'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/node.rb:73:in `click'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/rack_test/node.rb:125:in `block (2 levels) in <class:Node>'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-rails-1.7.0/lib/cucumber/rails/capybara/javascript_emulation.rb:16:in `click_with_javascript_emulation'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/node/element.rb:166:in `block in click'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/node/base.rb:83:in `synchronize'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/node/element.rb:166:in `click'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/node/actions.rb:58:in `click_button'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/session.rb:748:in `block (2 levels) in <class:Session>'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/capybara-3.21.0/lib/capybara/dsl.rb:51:in `block (2 levels) in <module:DSL>'
+        from /home/ec2-user/environment/work/saas/hw/rottenpotatoes-rails-intro/features/step_definitions/web_steps.rb:53:in `block in <top (required)>'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:39:in `instance_exec'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:39:in `block in cucumber_instance_exec_in'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:54:in `cucumber_run_with_backtrace_filtering'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/invoke_in_world.rb:27:in `cucumber_instance_exec_in'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/glue/step_definition.rb:110:in `invoke'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/step_match.rb:31:in `invoke'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/step_match.rb:24:in `block in activate'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/action.rb:24:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/step.rb:32:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:104:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:51:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:27:in `test_step'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/step.rb:17:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:28:in `block (3 levels) in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:27:in `each'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:27:in `block (2 levels) in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/prepare_world.rb:22:in `block in test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/around_hook.rb:17:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:104:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:51:in `execute'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:34:in `around_hook'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/around_hook.rb:12:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:120:in `block (2 levels) in compose_around_hooks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:121:in `compose_around_hooks'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:26:in `block in describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/runner.rb:19:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/prepare_world.rb:11:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:57:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/retry.rb:18:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/quit.rb:12:in `test_case'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/case.rb:25:in `describe_to'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:21:in `block in done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:20:in `map'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/filters/broadcast_test_run_started_event.rb:20:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/filters/locations_filter.rb:20:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/filter.rb:62:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/test/filters/tag_filter.rb:18:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/compiler.rb:24:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core/gherkin/parser.rb:39:in `done'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core.rb:32:in `parse'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-core-3.2.1/lib/cucumber/core.rb:21:in `compile'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/runtime.rb:75:in `run!'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/lib/cucumber/cli/main.rb:34:in `execute!'
+        from /usr/local/rvm/gems/ruby-2.4.0/gems/cucumber-3.1.2/bin/cucumber:9:in `<top (required)>'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/cucumber:23:in `load'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/cucumber:23:in `<main>'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:24:in `eval'
+        from /usr/local/rvm/gems/ruby-2.4.0/bin/ruby_executable_hooks:24:in `<main>'
+    And I press "Search TMDb"                                             # features/step_definitions/web_steps.rb:52
+      The action 'search_tmdb' could not be found for MoviesController (AbstractController::ActionNotFound)
+      ./features/step_definitions/web_steps.rb:53:in `/^(?:|I )press "([^"]*)"$/'
+      features/search_tmdb.feature:13:in `And I press "Search TMDb"'
+    Then I should be on the RottenPotatoes home page                      # features/step_definitions/web_steps.rb:230
+    And I should see "'Movie That Does Not Exist' was not found in TMDb." # features/step_definitions/web_steps.rb:105
+
+Failing Scenarios:
+cucumber features/search_tmdb.feature:8 # Scenario: Try to add nonexistent movie (sad path)
+
+1 scenario (1 failed)
+6 steps (1 failed, 2 skipped, 3 passed)
+0m0.254s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 이번 에러 메시지의 핵심은 컨트롤러에 뷰에서 언급한 search_tmdb와 연결된 액션이 없다는 것이다.
+%%% 따라서, 폼 액션으로 search_tmdb를 지정하였기 때문에 컨트롤러에 이 액션을 처리하는 def가 있어야 한다.
+
+AbstractController::ActionNotFound: The action 'search_tmdb' could not be found for MoviesController
+
+
+%%% app/controllers/movies_controller.fb에 액션을 처리하는 def를 추가한다.
+%%%  - https://gist.github.com/armandofox/79e81a88806b477a4f36
+
+# add to movies_controller.rb, anywhere inside
+#  'class MoviesController < ApplicationController':
+
+def search_tmdb
+  # hardwire to simulate failure
+  flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+  redirect_to movies_path
+end
+
+
+%%% 다시 cucumber를 실행하면
+
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ cucumber features/search_tmdb.feature 
+Using the default profile...
+Feature: User can add movie by searching for it in The Movie Database (TMDb)
+  As a movie fan
+  So that I can add new movies without manual tedium
+  I want to add movies by looking up their details in TMDb
+
+  Scenario: Try to add nonexistent movie (sad path)                       # features/search_tmdb.feature:8
+    Given I am on the RottenPotatoes home page                            # features/step_definitions/web_steps.rb:44
+    Then I should see "Search TMDb for a movie"                           # features/step_definitions/web_steps.rb:105
+    When I fill in "Search Terms" with "Movie That Does Not Exist"        # features/step_definitions/web_steps.rb:60
+    And I press "Search TMDb"                                             # features/step_definitions/web_steps.rb:52
+    Then I should be on the RottenPotatoes home page                      # features/step_definitions/web_steps.rb:230
+    And I should see "'Movie That Does Not Exist' was not found in TMDb." # features/step_definitions/web_steps.rb:105
+
+1 scenario (1 passed)
+6 steps (6 passed)
+0m0.239s
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+%%% 새로 추가한 2) Sad path 시나리오가 성공했다!!
+
+
+%%% 지금까지 과정을 다음 동영상에서 시연한다.
+%%% - https://www.youtube.com/watch?v=wornoChkjfM&feature=youtu.be
+
+
+
+%%% rotton potatoes를 실제로 실행해서 2) Sad path 시나리오를 확인해보자.
+%%%  - Search Terms 라벨의 입력에 키워드를 넣고 Search TMDB 버튼을 누르면
+%%%  - 해당 키워드 was not found in TMDB 메시지와 함께 영화 목록 화면으로 돌아온다.
+
+rails server -p 8080
+
+
+
+%%% 지금까지 무엇을 했지?
+%%%
+%%% * Agile 개발 방법의  BDD (Behavior drivien development)
+%%%
+%%%  - Cucumber 도구를 활용하여 시나리오를 먼저 작성하고
+%%%  - 이 시나리오를 통과하도록 (붉은색 => 녹색) 뷰/라우트/컨트롤러 코드를 추가 작성하여 개발
+
+
+%%% Wow!!!
+
+
+%%% 작업한 내용을 git으로 커밋하기 (git 명령어 생략)
+`
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $ git status
+On branch master
+Your branch is ahead of 'origin/master' by 5 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   Gemfile
+        modified:   Gemfile.lock
+        modified:   app/controllers/movies_controller.rb
+        modified:   app/views/movies/index.html.haml
+        modified:   config/database.yml
+        modified:   config/environments/test.rb
+        modified:   config/routes.rb
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        config/cucumber.yml
+        features/
+        lib/tasks/cucumber.rake
+        script/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+kwanghoon:~/environment/work/saas/hw/rottenpotatoes-rails-intro (master) $
+
+
+
+
+
+
